@@ -2,8 +2,9 @@ module ImageNoise
 
 using Distributions
 
-include("noise.jl")
-include("imnoise.jl")
-include("imdenoise.jl")
+include("NoiseAPI/NoiseAPI.jl")
+import .NoiseAPI: AbstractImageFilter,
+        remove_noise, remove_noise!,
+        apply_noise, apply_noise!
 
 end # module
