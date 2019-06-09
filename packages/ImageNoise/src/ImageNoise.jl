@@ -1,10 +1,13 @@
 module ImageNoise
 
-using Distributions
+using Reexport
 
 include("NoiseAPI/NoiseAPI.jl")
-import .NoiseAPI: AbstractImageFilter,
-        remove_noise, remove_noise!,
-        apply_noise, apply_noise!
+include("ApplyNoise/ApplyNoise.jl")
+# include("ReduceNoise/ReduceNoise.jl")
+
+@reexport using .ApplyNoise
+# @reexport using .ReduceNoise
+
 
 end # module

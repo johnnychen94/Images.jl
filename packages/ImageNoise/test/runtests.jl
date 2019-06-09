@@ -1,6 +1,5 @@
 using ImageNoise
-using Test
+using Test, Random
 
-include("noise.jl")
-include("imnoise.jl")
-include("imdenoise.jl")
+include("testutils.jl")
+include("ApplyNoise/AdditiveWhiteGaussianNoise.jl")
