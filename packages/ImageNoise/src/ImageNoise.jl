@@ -4,10 +4,9 @@ using Reexport
 
 include("NoiseAPI/NoiseAPI.jl")
 include("ApplyNoise/ApplyNoise.jl")
-# include("ReduceNoise/ReduceNoise.jl")
+include("ReduceNoise/ReduceNoise.jl")
 
 @reexport using .ApplyNoise
-# @reexport using .ReduceNoise
-
+@reexport using .ReduceNoise
 
 end # module
