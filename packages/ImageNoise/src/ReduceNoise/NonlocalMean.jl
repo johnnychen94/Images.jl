@@ -86,14 +86,14 @@ function (f::NonlocalMean)(out::AbstractArray{<:NumberLike, 2},
     wsqeuclidean(k, w1, w2) = k*(w1-w2)^2
     d_temp = similar(kernel)
     for p in R
-        patch_p = img[p-offset_p : p+offset_p]
+        patch_p = img[_colon(p-offset_p, p+offset_p)]
 
         wmax = 0 # set w[p, p] as wmax instead of 1
         ∑wq  = 0
         ∑w   = 0 # Z[p] in the docstring
-        for q in R[max(p-offset_s, first(R))] : R[min(p+offset_s, last(R))]
+        for q in _colon(R[max(p-offset_s, first(R))], R[min(p+offset_s, last(R))])
             p==q && continue # skip w[p, p]
-            patch_q = img[q-offset_p : q+offset_p] # faster than @view
+            patch_q = img[_colon(q-offset_p, q+offset_p)] # faster than @view
 
             # calculate weight
             broadcast!(wsqeuclidean, d_temp, kernel, patch_p, patch_q)
@@ -140,4 +140,16 @@ function make_kernel(r)
         end
     end
     parent(kernel ./ sum(kernel))
+end
+
+
+"""
+    _colon(I:J)
+
+`_colon(I, J)` works equivelently to `I:J`, it's used to backward support julia v"1.0".
+"""
+_colon(I, J) = I:J
+if v"1.0" <= VERSION < v"1.1"
+    _colon(I::CartesianIndex{N}, J::CartesianIndex{N}) where N =
+        CartesianIndices(map((i,j) -> i:j, Tuple(I), Tuple(J)))
 end
