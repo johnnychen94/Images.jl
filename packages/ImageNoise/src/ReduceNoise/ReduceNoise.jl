@@ -8,6 +8,7 @@ using ImageFiltering
 using ColorVectorSpace
 import ..NoiseAPI: AbstractImageDenoiseAlgorithm, reduce_noise, reduce_noise!
 
+include("compat.jl")
 include("NonlocalMean.jl")
 
 export
