@@ -72,6 +72,7 @@ macro filter_api(func_name, filter_type = AbstractImageFilter)
         function $(inplace_func_name)(img, f::$(filter_type), args...; kwargs...)
             tmp = copy(img)
             f(img, tmp, args...; kwargs...)
+            img
         end
 
         function $(func_name)(::Type{T}, img, f::$(filter_type), args...; kwargs...) where T

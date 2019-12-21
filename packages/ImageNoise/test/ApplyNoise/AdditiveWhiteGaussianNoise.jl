@@ -10,8 +10,12 @@
         A = rand(Gray, 255, 255)
         B1 = similar(A)
         B2 = copy(A)
-        apply_noise!(B1, A, n)
-        apply_noise!(B2, n)
+        out_B1 = apply_noise!(B1, A, n)
+        out_B2 = apply_noise!(B2, n)
+        # issue #7
+        @test out_B2 == B2
+        @test out_B1 == B1
+
         B3 = apply_noise(A, n)
 
         B1 = similar(A)
