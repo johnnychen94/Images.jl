@@ -1,7 +1,7 @@
 name = "ImageNoise"
 uuid = "2e361c58-64d7-11e9-3ab3-89c4c0b8f7db"
 authors = ["Johnny Chen <johnnychen94@hotmail.com>"]
-version = "0.1.1"
+version = "0.1.2"
 
 [deps]
 ColorVectorSpace = "c3611d14-8923-5661-9e6a-0046d554d3a4"
@@ -13,21 +13,22 @@ Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 
 [compat]
-ColorVectorSpace = ">= 0.7"
-Distributions = ">= 0.19"
-ImageCore = ">= 0.8.3"
-MappedArrays = ">= 0.2"
+ColorVectorSpace = "0.7, 0.8"
+Distributions = "0.19, 0.20, 0.21"
+ImageCore = "0.8.4"
+ImageFiltering = "0.5, 0.6"
+MappedArrays = "0.2"
 Reexport = "0.2"
+ReferenceTests = "0.7"
 julia = "1"
 
 [extras]
 ImageMagick = "6218d12a-5da1-5696-b52f-db25d2ecc6d1"
 ImageQualityIndexes = "2996bd0c-7a13-11e9-2da2-2f5ce47296a9"
 ImageTransformations = "02fcd773-0e25-5acc-982a-7f6622650795"
-QuartzImageIO = "dca85d43-d64c-5e67-8c65-017450d5d020"
 ReferenceTests = "324d217c-45ce-50fc-942e-d289b448e8cf"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 TestImages = "5e47fb64-e119-507b-a336-dd2b206d9990"
 
 [targets]
-test = ["ImageMagick", "ImageQualityIndexes", "ImageTransformations", "QuartzImageIO", "ReferenceTests", "Test", "TestImages"]
+test = ["ImageMagick", "ImageQualityIndexes", "ImageTransformations", "ReferenceTests", "Test", "TestImages"]
