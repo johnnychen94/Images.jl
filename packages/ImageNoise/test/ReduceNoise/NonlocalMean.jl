@@ -29,8 +29,8 @@
         @test eltype(denoised_img_4) == Gray{Float64}
         @test denoised_img_1 == denoised_img_2
         @test denoised_img_1 == denoised_img_3
-        @test psnr(denoised_img_1, denoised_img_4) >= 50
-        @test ssim(denoised_img_1, denoised_img_4) >= 0.999
+        @test assess(PSNR(), denoised_img_1, denoised_img_4) >= 50
+        @test assess(SSIM(), denoised_img_1, denoised_img_4) >= 0.999
     end
 
     @testset "Types" begin
@@ -67,7 +67,7 @@
         f = NonlocalMean(0.05, 2)
         denoised_img = reduce_noise(noisy_img, f)
         # further modification shall not decrease psnr and ssim
-        psnr(denoised_img, img_gray) >= 28.46
-        ssim(denoised_img, img_gray) >= 0.918
+        assess(PSNR(), denoised_img, img_gray) >= 28.46
+        assess(SSIM(), denoised_img, img_gray) >= 0.918
     end
 end

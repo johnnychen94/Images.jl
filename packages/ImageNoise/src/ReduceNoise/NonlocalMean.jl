@@ -39,11 +39,11 @@ noisy_img = apply_noise(img, n)
 
 # use default filter arguments
 f_denoise = NonlocalMean(0.1)
-denoised_img = reduce_noise(noisy_img, f)
+denoised_img = reduce_noise(noisy_img, f_denoise)
 
 # estimate filter arguments with noisy_img
 f_denoise = NonlocalMean(0.1, noisy_img)
-denoised_img = reduce_noise(noisy_img, f)
+denoised_img = reduce_noise(noisy_img, f_denoise)
 ```
 
 See also: [`reduce_noise`](@ref), [`reduce_noise!`](@ref)
