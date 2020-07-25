@@ -2,6 +2,7 @@ module ReduceNoise
 
 using Base.Iterators
 using MappedArrays
+using OffsetArrays
 using ImageCore
 using ImageCore: NumberLike, GenericGrayImage, GenericImage
 using ImageFiltering

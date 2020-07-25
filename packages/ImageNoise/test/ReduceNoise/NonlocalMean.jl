@@ -35,7 +35,7 @@
 
     @testset "Types" begin
         # Gray
-        img_gray = imresize(float64.(testimage("lena_gray_256")); ratio=0.25)
+        img_gray = n0f8.(imresize(testimage("lena_gray_256"); ratio=0.25))
         n = AdditiveWhiteGaussianNoise(0.05)
         noisy_img = apply_noise(img_gray, n; rng=MersenneTwister(0))
 
@@ -43,11 +43,11 @@
         type_list = generate_test_types([Float32, N0f8], [Gray])
         for T in type_list
             img = T.(noisy_img)
-            @test_reference "References/NonlocalMean_Gray.png" Gray.(reduce_noise(img, f))
+            @test_reference "References/NonlocalMean_Gray.png" Gray{N0f8}.(reduce_noise(img, f))
         end
 
         # Color3
-        img_color = imresize(float64.(testimage("lena_color_256")); ratio=0.25)
+        img_color = n0f8.(imresize(testimage("lena_color_256"); ratio=0.25))
         n = AdditiveWhiteGaussianNoise(0.05)
         noisy_img = apply_noise(img_color, n; rng=MersenneTwister(0))
 
@@ -55,12 +55,12 @@
         type_list = generate_test_types([Float32, N0f8], [RGB, Lab])
         for T in type_list
             img = T.(noisy_img)
-            @test_reference "References/NonlocalMean_Color3.png" RGB.(reduce_noise(img, f))
+            @test_reference "References/NonlocalMean_Color3.png" RGB{N0f8}.(reduce_noise(img, f)) by=psnr_equality(24)
         end
     end
 
     @testset "Numeric" begin
-        img_gray = imresize(float64.(testimage("lena_gray_256")); ratio=0.25)
+        img_gray = n0f8.(imresize(testimage("lena_gray_256"); ratio=0.25))
         n = AdditiveWhiteGaussianNoise(0.05)
         noisy_img = apply_noise(img_gray, n; rng=MersenneTwister(0))
 
