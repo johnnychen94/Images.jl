@@ -1,10 +1,9 @@
 module ApplyNoise
 
 using Random
-using MappedArrays
 using ImageCore
+using ImageCore.MappedArrays
 using ImageCore: NumberLike, GenericGrayImage, GenericImage
-using ColorVectorSpace
 
 import ..NoiseAPI: AbstractImageNoise, apply_noise, apply_noise!
 import Base: show
