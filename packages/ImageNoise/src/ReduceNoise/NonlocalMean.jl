@@ -85,6 +85,10 @@ function (f::NonlocalMean)(out::AbstractArray{<:NumberLike, 2},
         first(ax)-o:last(ax)+o
     end
     img = PaddedView(zero(eltype(img)), img, padded_axes)
+    # PaddedView's `getindex` has some overhead so we collect it into a dense array
+    # and then pass to OffsetArray. Becuase we're doing a heavy amount of `getindex`
+    # operation, this extra memory allocation worths.
+    img = OffsetArray(collect(img), padded_axes)
     Δₚ = CartesianIndex(oₚ)
     Δₛ = CartesianIndex(ntuple(_->r_s, ndims(img)))
 
