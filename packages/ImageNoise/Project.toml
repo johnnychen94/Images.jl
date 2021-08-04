@@ -13,7 +13,7 @@ Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 Distributions = "0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25"
 ImageCore = "0.9"
 Reexport = "0.2, 1.0"
-julia = "1"
+julia = "1.6"
 
 [extras]
 ImageIO = "82e4d734-157c-48bb-816b-45c225c6df19"
