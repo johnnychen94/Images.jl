@@ -1,12 +1,11 @@
 module ReduceNoise
 
 using Base.Iterators
-using MappedArrays
-using OffsetArrays
 using ImageCore
+using ImageCore.MappedArrays
+using ImageCore.OffsetArrays
+using ImageCore.PaddedViews
 using ImageCore: NumberLike, GenericGrayImage, GenericImage
-using ImageFiltering
-using ColorVectorSpace
 import ..NoiseAPI: AbstractImageDenoiseAlgorithm, reduce_noise, reduce_noise!
 
 include("compat.jl")

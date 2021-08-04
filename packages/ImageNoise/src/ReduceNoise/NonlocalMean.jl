@@ -81,7 +81,10 @@ function (f::NonlocalMean)(out::AbstractArray{<:NumberLike, 2},
     R = CartesianIndices(img) # indices without padding
 
     oₚ = ntuple(_->r_p, ndims(img))
-    img = padarray(img, Pad(:symmetric, oₚ, oₚ))
+    padded_axes = map(axes(img), oₚ) do ax, o
+        first(ax)-o:last(ax)+o
+    end
+    img = PaddedView(zero(eltype(img)), img, padded_axes)
     Δₚ = CartesianIndex(oₚ)
     Δₛ = CartesianIndex(ntuple(_->r_s, ndims(img)))
 
@@ -137,7 +140,7 @@ end
 
 """ gaussian-like kernel """
 function make_kernel(T, r)
-    kernel = centered(zeros(2r+1, 2r+1))
+    kernel = OffsetArrays.centered(zeros(2r+1, 2r+1))
     R = CartesianIndices(kernel)
     for d in 1:r
         v = 1/(2d+1)^2
@@ -145,7 +148,7 @@ function make_kernel(T, r)
             kernel[i] += v
         end
     end
-    centered(T.(kernel ./ sum(kernel)))
+    OffsetArrays.centered(T.(kernel ./ sum(kernel)))
 end
 
 """ weighted squared euclidean """
@@ -153,7 +156,7 @@ function wsqeucliean(W, X, Y)
     rst = zero(eltype(W))
     # use linear indexing
     @inbounds @simd for i = 1:length(W)
-        rst += W[i] * abs2(X[i] - Y[i])
+        rst += W[i] * _abs2(X[i] - Y[i])
     end
     return rst
 end
