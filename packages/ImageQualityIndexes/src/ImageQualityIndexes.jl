@@ -1,0 +1,45 @@
+module ImageQualityIndexes
+
+using OffsetArrays
+using ImageCore
+# Where possible we avoid a direct dependency to reduce the number of [compat] bounds
+using ImageCore.MappedArrays
+using ImageCore: NumberLike, Pixel, GenericImage, GenericGrayImage
+using ImageDistances
+using ImageContrastAdjustment
+import ImageFiltering: KernelFactors, kernelfactors, imfilter
+using Statistics: mean, std
+using Base.Iterators: repeated, flatten
+
+include("generic.jl")
+include("psnr.jl")
+include("ssim.jl")
+include("msssim.jl")
+include("colorfulness.jl")
+include("entropy.jl")
+
+export
+    # generic
+    assess,
+
+    # Peak signal-to-noise ratio
+    PSNR,
+    assess_psnr,
+
+    # Structral Similarity
+    SSIM,
+    assess_ssim,
+
+    # Multi Scale Structural Similarity
+    MSSSIM,
+    assess_msssim,
+
+    # Colorfulness
+    HASLER_AND_SUSSTRUNK_M3,
+    hasler_and_susstrunk_m3,
+    colorfulness,
+
+    # used to live in Images.jl
+    entropy
+
+end # module
