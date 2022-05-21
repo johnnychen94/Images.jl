@@ -1,0 +1,41 @@
+version: "0.1"
+dialect: manifest_runner
+
+runners:
+  unittest:
+    runner: shell
+    run:
+      command: |
+        julia
+        --color=yes
+        --depwarn=yes
+        --inline=yes
+        --project=.
+        -e '
+          using Pkg
+          coverage = ${{ tasks.run.args.coverage }}
+          force_latest_compatible_version = false
+          julia_args = [
+            "--check-bounds=yes"
+          ]
+          if VERSION >= v"1.7"
+            Pkg.test(; coverage, force_latest_compatible_version, julia_args)
+          else
+            Pkg.test(; coverage, julia_args)
+          end
+        '
+      workdir: ${{ tasks.run.args.project }}
+
+tasks:
+  - name: "run unit test"
+    id: unittest
+    groups: [test]
+    runner: unittest
+    run:
+      args:
+        project: packages/${{ matrix.project }}
+        coverage: true
+    matrix:
+      project:
+        - ImageBase
+        - ImageQualityIndexes
