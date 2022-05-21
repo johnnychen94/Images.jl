@@ -1,0 +1,24 @@
+name = "ImageDistances"
+uuid = "51556ac3-7006-55f5-8cb3-34580c88182d"
+version = "0.2.15"
+
+[deps]
+Distances = "b4f34e82-e78d-54a5-968a-f98e89d6e8f7"
+ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"
+ImageMorphology = "787d08f9-d448-5407-9aad-5290dd7ab264"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+
+[compat]
+Distances = "0.8.1, 0.9.2, 0.10"
+ImageCore = "0.9"
+ImageMorphology = "0.2.6, 0.3"
+julia = "1"
+
+[extras]
+IterTools = "c8e1da08-722c-5040-9ed9-7db0dc04731e"
+ReferenceTests = "324d217c-45ce-50fc-942e-d289b448e8cf"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["IterTools", "ReferenceTests", "Test"]
